@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Students</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+  </head>
+  <body
+    style="
+      background-image: url('/images/back.png');
+      box-sizing: border-box;
+      padding: 0px;
+      margin: 0px;
+    "
+    class="container-fluid"
+  >
+    <!-- Include header.ejs -->
+    <%- include('partials/header.ejs') %>
+    <div class="col-auto">
+      <h1 class="col-4 p-3 bg-light shadow-lg shadow mt-3">List of Students</h1>
+      <table
+        class="table table-hover table-striped mt-3 ml-0 mb-0 shadow-sm bg-transparent rounded"
+      >
+        <thead class="shadow-lg p-3 mb-5 bg-info rounded">
+          <tr class="">
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Zipcode</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Guardian Name</th>
+            <th>Guardian Phone</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% students.forEach(student => { %>
+          <tr class="shadow-sm p-3 mb-5 bg-white rounded">
+            <td><%= student.id %></td>
+            <td><%= student.first_name %></td>
+            <td><%= student.last_name %></td>
+            <td><%= student.gender %></td>
+            <td><%= student.date_of_birth %></td>
+            <td><%= student.address %></td>
+            <td><%= student.city %></td>
+            <td><%= student.state %></td>
+            <td><%= student.zipcode %></td>
+            <td><%= student.email %></td>
+            <td><%= student.phone_number %></td>
+            <td><%= student.guardian_name %></td>
+            <td><%= student.guardian_phone %></td>
+            <td
+              class="p-1 d-flex align-items-center justify-content-center align-self-center border border-bottom-0 border-right-0 border-left-0"
+            >
+              <button
+                class="btn btn-success px-4 mr-3 edit-button"
+                data-toggle="modal"
+                data-target="#editModal"
+                data-student-id="<%= student.id %>"
+                data-student-first-name="<%= student.first_name %>"
+                data-student-last-name="<%= student.last_name %>"
+                data-student-gender="<%= student.gender %>"
+                data-student-date-of-birth="<%= student.date_of_birth %>"
+                data-student-address="<%= student.address %>"
+                data-student-city="<%= student.city %>"
+                data-student-state="<%= student.state %>"
+                data-student-zipcode="<%= student.zipcode %>"
+                data-student-email="<%= student.email %>"
+                data-student-phone-number="<%= student.phone_number %>"
+                data-student-guardian-name="<%= student.guardian_name %>"
+                data-student-guardian-phone="<%= student.guardian_phone %>"
+              >
+                Edit
+              </button>
+              <form action="/sims/<%= student.id %>/delete/" method="POST" style="display: inline-block" >
+                <button type="submit" class="btn btn-danger mr-0">
+                  Delete
+                </button>
+              </form>
+            </td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+   
+
+    <!-- Bootstrap Modal for Editing Student -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editModalLabel">Edit Student</h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Form fields for editing student data -->
+            <form id="editStudentForm" action="/sims/update" method="POST">
+              <!-- First Name field -->
+              <div class="form-group">
+                <label for="editFirstName">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editFirstName"
+                  name="editFirstName"
+                />
+              </div>
+              <!-- Last Name field -->
+              <div class="form-group">
+                <label for="editLastName">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editLastName"
+                  name="editLastName"
+                />
+              </div>
+              <!-- Gender field -->
+              <div class="form-group">
+                <label for="editGender">Gender</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editGender"
+                  name="editGender"
+                />
+              </div>
+              <!-- Date of Birth field -->
+              <div class="form-group">
+                <label for="editDateOfBirth">Date of Birth</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editDateOfBirth"
+                  name="editDateOfBirth"
+                />
+              </div>
+              <!-- Address field -->
+              <div class="form-group">
+                <label for="editAddress">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editAddress"
+                  name="editAddress"
+                />
+              </div>
+              <!-- City field -->
+              <div class="form-group">
+                <label for="editCity">City</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editCity"
+                  name="editCity"
+                />
+              </div>
+              <!-- State field -->
+              <div class="form-group">
+                <label for="editState">State</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editState"
+                  name="editState"
+                />
+              </div>
+              <!-- Zipcode field -->
+              <div class="form-group">
+                <label for="editZipcode">Zipcode</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editZipcode"
+                  name="editZipcode"
+                />
+              </div>
+              <!-- Email field -->
+              <div class="form-group">
+                <label for="editEmail">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  name="editEmail"
+                />
+              </div>
+              <!-- Phone Number field -->
+              <div class="form-group">
+                <label for="editPhoneNumber">Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="editPhoneNumber"
+                  name="editPhoneNumber"
+                />
+              </div>
+              <!-- Guardian Name field -->
+              <div class="form-group">
+                <label for="editGuardianName">Guardian Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editGuardianName"
+                  name="editGuardianName"
+                />
+              </div>
+              <!-- Guardian Phone field -->
+              <div class="form-group">
+                <label for="editGuardianPhone">Guardian Phone</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="editGuardianPhone"
+                  name="editGuardianPhone"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript to handle modal opening and data population -->
+    <script>
+      $(document).ready(function () {
+        $(".edit-button").click(function () {
+          var studentId = $(this).data("student-id");
+          var firstName = $(this).data("student-first-name");
+          var lastName = $(this).data("student-last-name");
+          var gender = $(this).data("student-gender");
+          var dateOfBirth = $(this).data("student-date-of-birth");
+          var address = $(this).data("student-address");
+          var city = $(this).data("student-city");
+          var state = $(this).data("student-state");
+          var zipcode = $(this).data("student-zipcode");
+          var email = $(this).data("student-email");
+          var phoneNumber = $(this).data("student-phone-number");
+          var guardianName = $(this).data("student-guardian-name");
+          var guardianPhone = $(this).data("student-guardian-phone");
+
+          // Populate modal fields with the selected student's data
+          $("#editModal #editFirstName").val(firstName);
+          $("#editModal #editLastName").val(lastName);
+          $("#editModal #editGender").val(gender);
+          $("#editModal #editDateOfBirth").val(dateOfBirth);
+          $("#editModal #editAddress").val(address);
+          $("#editModal #editCity").val(city);
+          $("#editModal #editState").val(state);
+          $("#editModal #editZipcode").val(zipcode);
+          $("#editModal #editEmail").val(email);
+          $("#editModal #editPhoneNumber").val(phoneNumber);
+          $("#editModal #editGuardianName").val(guardianName);
+          $("#editModal #editGuardianPhone").val(guardianPhone);
+
+          // Set the form action to include the student ID
+          $("#editStudentForm").attr(
+            "action",
+            "/sims/" + studentId + "/update"
+          );
+        });
+      });
+    </script>
+      <!-- Include footer.ejs -->
+   <%- include('partials/footer.ejs') %>
+  </body>
+ 
+</html>

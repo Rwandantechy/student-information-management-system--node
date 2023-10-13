@@ -1,0 +1,23 @@
+{
+  "name": "student_information_system_node",
+  "version": "1.0.0",
+  "description": "advanced web development subject  semester 7, lab practical 13.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -e js,ejs"
+  },
+  "author": "Rwandantechy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "joi": "^17.11.0",
+    "mongoose": "^7.6.1",
+    "nodemon": "^3.0.1",
+    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6"
+  }
+}
